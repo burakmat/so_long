@@ -66,6 +66,10 @@ int move(int key_code, void *param)
 	// printf("keycode: %d\n", key_code);
 	return (0);
 }
+int terminate(void *param)
+{
+	exit(0);
+}
 
 int	main(void)
 {
@@ -105,7 +109,9 @@ int	main(void)
 	game.mlx.mlx = mlx_init();
 	game.mlx.window = mlx_new_window(game.mlx.mlx, 1920, 1080, "so_long");
 	mlx_key_hook(game.mlx.window, move, &game);
+	// mlx_hook(game.mlx.window, 2, 1L<<0, terminate, &game);
 	mlx_loop_hook(game.mlx.mlx, idle, &game);
+	mlx_hook(game.mlx.window, 17, (0L), terminate, &game);
 	mlx_loop(game.mlx.mlx);
 //	system("leaks a.out");
 }

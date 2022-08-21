@@ -90,7 +90,6 @@ int	main(void)
 			"wizard/idle_right/wizard_right7.xpm", 
 			"wizard/idle_right/wizard_right8.xpm"
 	};
-	game.player.right_idle = ptr;
 	char *ptr1[] = {
 			"wizard/idle_left/wizard_left1.xpm", 
 			"wizard/idle_left/wizard_left2.xpm", 
@@ -101,17 +100,22 @@ int	main(void)
 			"wizard/idle_left/wizard_left7.xpm", 
 			"wizard/idle_left/wizard_left8.xpm"
 		};
+	game.player.right_idle = ptr;
 	game.player.left_idle = ptr1;
 
 	game.player.pos_x = 0;
 	game.player.pos_y = 0;
 	game.player.face = 1;
 	game.mlx.mlx = mlx_init();
-	game.mlx.window = mlx_new_window(game.mlx.mlx, 1920, 1080, "so_long");
-	mlx_key_hook(game.mlx.window, move, &game);
-	// mlx_hook(game.mlx.window, 2, 1L<<0, terminate, &game);
-	mlx_loop_hook(game.mlx.mlx, idle, &game);
-	mlx_hook(game.mlx.window, 17, (0L), terminate, &game);
+	game.mlx.window = mlx_new_window(game.mlx.mlx, 2000, 1080, "so_long");
+//
+
+	// mlx_put_image_to_window(game.mlx.mlx, game.mlx.window, mlx_xpm_file_to_image(game.mlx.mlx, "./wizard/run_right/Run.xpm", &i, &j), 0, 0);
+	// mlx_put_image_to_window(game.mlx.mlx, game.mlx.window, mlx_xpm_file_to_image(game.mlx.mlx, game.player.right_idle[0], &i, &j), 40, 60);
+//	
+	mlx_key_hook(game.mlx.window, &move, &game);
+	mlx_loop_hook(game.mlx.mlx, &idle, &game);
+	mlx_hook(game.mlx.window, 17, (0L), &terminate, &game);
 	mlx_loop(game.mlx.mlx);
 //	system("leaks a.out");
 }

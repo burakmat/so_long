@@ -7,6 +7,7 @@ typedef struct s_player
 {
 	char **right_idle;
 	char **left_idle;
+	char **run_right;
 	int pos_x;
 	int pos_y;
 	int face;
@@ -44,6 +45,32 @@ int	 idle(void *_game)
 	return (0);
 }
 
+int run(void *_game)
+{
+	int x;
+	int i;
+	int j;
+	int k;
+	void *img;
+	x = 0;
+	t_game *game = (t_game *)_game;
+	if (game->player.face)
+	{
+		while (x < 8)
+		{
+			img = mlx_xpm_file_to_image(game->mlx.mlx, game->player.run_right[x++], &i, &j);
+			printf("x: %d\n", x);
+			mlx_clear_window(game->mlx.mlx, game->mlx.window);
+			game->player.pos_x += 8;
+			k = 0;
+			while (k++ < 3000)
+				mlx_put_image_to_window(game->mlx.mlx, game->mlx.window, img, game->player.pos_x, game->player.pos_y);
+		}
+	}
+	mlx_loop_hook(game->mlx.mlx, &idle, game);
+	return 0;
+}
+
 int move(int key_code, void *param)
 {
 	t_game *game = (t_game *) param;
@@ -51,8 +78,9 @@ int move(int key_code, void *param)
 		game->player.pos_y -= 64;
 	else if (key_code == 124)
 	{
-		game->player.pos_x += 64;
+		// game->player.pos_x += 64;
 		game->player.face = 1;
+		mlx_loop_hook(game->mlx.mlx, &run, game);
 	}
 	else if (key_code == 125)
 		game->player.pos_y += 64;
@@ -99,9 +127,20 @@ int	main(void)
 			"wizard/idle_left/wizard_left6.xpm", 
 			"wizard/idle_left/wizard_left7.xpm", 
 			"wizard/idle_left/wizard_left8.xpm"
-		};
+	};
+	char *ptr2[] = {
+			"wizard/run_right/run_right1.xpm", 
+			"wizard/run_right/run_right2.xpm", 
+			"wizard/run_right/run_right3.xpm", 
+			"wizard/run_right/run_right4.xpm", 
+			"wizard/run_right/run_right5.xpm", 
+			"wizard/run_right/run_right6.xpm", 
+			"wizard/run_right/run_right7.xpm", 
+			"wizard/run_right/run_right8.xpm"
+	};
 	game.player.right_idle = ptr;
 	game.player.left_idle = ptr1;
+	game.player.run_right = ptr2;
 
 	game.player.pos_x = 0;
 	game.player.pos_y = 0;

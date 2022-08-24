@@ -1,29 +1,4 @@
-#include "minilibx_opengl/mlx.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-
-typedef struct s_player
-{
-	char **right_idle;
-	char **left_idle;
-	char **run_right;
-	int pos_x;
-	int pos_y;
-	int face;
-} t_player;
-
-typedef struct s_mlx{
-	void *mlx;
-	void *window;
-} t_mlx;
-
-typedef struct s_game
-{
-	t_mlx mlx;
-	t_player player;
-} t_game;
-
+#include "so_long.h"
 
 int	 idle(void *_game)
 {
@@ -33,61 +8,109 @@ int	 idle(void *_game)
 	void *img;
 	t_game *game = (t_game *) _game;
 	if (game->player.face == 1)
-		img = mlx_xpm_file_to_image(game->mlx.mlx, game->player.right_idle[x++], &i, &j);
+		img = mlx_xpm_file_to_image(game->libx.mlx, game->player.right_idle[x++], &i, &j);
 	else
-		img = mlx_xpm_file_to_image(game->mlx.mlx, game->player.left_idle[x++], &i, &j);
-	mlx_clear_window(game->mlx.mlx, game->mlx.window);
+		img = mlx_xpm_file_to_image(game->libx.mlx, game->player.left_idle[x++], &i, &j);
+	mlx_clear_window(game->libx.mlx, game->libx.window);
 	int k = 0;
-	while (k++ < 3000)
-		mlx_put_image_to_window(game->mlx.mlx, game->mlx.window, img, game->player.pos_x, game->player.pos_y);
+	while (k++ < FRAME_NUM)
+		mlx_put_image_to_window(game->libx.mlx, game->libx.window, img, game->player.pos_x, game->player.pos_y);
 	if (x == 8)
 		x = 0;
 	return (0);
 }
 
-int run(void *_game)
+int run_horizontal(void *_game)
 {
-	int x;
+	static int x = 0;
 	int i;
 	int j;
 	int k;
 	void *img;
-	x = 0;
 	t_game *game = (t_game *)_game;
 	if (game->player.face)
 	{
-		while (x < 8)
-		{
-			img = mlx_xpm_file_to_image(game->mlx.mlx, game->player.run_right[x++], &i, &j);
-			printf("x: %d\n", x);
-			mlx_clear_window(game->mlx.mlx, game->mlx.window);
-			game->player.pos_x += 8;
-			k = 0;
-			while (k++ < 3000)
-				mlx_put_image_to_window(game->mlx.mlx, game->mlx.window, img, game->player.pos_x, game->player.pos_y);
-		}
+		img = mlx_xpm_file_to_image(game->libx.mlx, game->player.run_right[x++], &i, &j);
+		mlx_clear_window(game->libx.mlx, game->libx.window);
+		game->player.pos_x += 8;
+		k = 0;
+		while (k++ < FRAME_NUM)
+			mlx_put_image_to_window(game->libx.mlx, game->libx.window, img, game->player.pos_x, game->player.pos_y);
 	}
-	mlx_loop_hook(game->mlx.mlx, &idle, game);
+	else
+	{
+		img = mlx_xpm_file_to_image(game->libx.mlx, game->player.run_left[x++], &i, &j);
+		mlx_clear_window(game->libx.mlx, game->libx.window);
+		game->player.pos_x -= 8;
+		k = 0;
+		while (k++ < FRAME_NUM)
+			mlx_put_image_to_window(game->libx.mlx, game->libx.window, img, game->player.pos_x, game->player.pos_y);
+	}
+	if (x == 8)
+	{
+		x = 0;
+		mlx_loop_hook(game->libx.mlx, &idle, game);
+	}
+	return 0;
+}
+
+int run_vertical(void *_game)
+{
+	static int x = 0;
+	int i;
+	int j;
+	int k;
+	void *img;
+	t_game *game = (t_game *)_game;
+	if (game->player.vertical_way)
+	{
+		img = mlx_xpm_file_to_image(game->libx.mlx, game->player.run_right[x++], &i, &j);
+		mlx_clear_window(game->libx.mlx, game->libx.window);
+		game->player.pos_y -= 8;
+		k = 0;
+		while (k++ < FRAME_NUM)
+			mlx_put_image_to_window(game->libx.mlx, game->libx.window, img, game->player.pos_x, game->player.pos_y);
+	}
+	else
+	{
+		img = mlx_xpm_file_to_image(game->libx.mlx, game->player.run_left[x++], &i, &j);
+		mlx_clear_window(game->libx.mlx, game->libx.window);
+		game->player.pos_y += 8;
+		k = 0;
+		while (k++ < FRAME_NUM)
+			mlx_put_image_to_window(game->libx.mlx, game->libx.window, img, game->player.pos_x, game->player.pos_y);
+	}
+	if (x == 8)
+	{
+		x = 0;
+		mlx_loop_hook(game->libx.mlx, &idle, game);
+	}
 	return 0;
 }
 
 int move(int key_code, void *param)
 {
 	t_game *game = (t_game *) param;
-	if (key_code == 126)
-		game->player.pos_y -= 64;
-	else if (key_code == 124)
+	if (key_code == 126)//UP
+	{
+		game->player.vertical_way = 1;
+		mlx_loop_hook(game->libx.mlx, &run_vertical, game);
+	}
+	else if (key_code == 124)//RIGHT
 	{
 		// game->player.pos_x += 64;
 		game->player.face = 1;
-		mlx_loop_hook(game->mlx.mlx, &run, game);
+		mlx_loop_hook(game->libx.mlx, &run_horizontal, game);
 	}
-	else if (key_code == 125)
-		game->player.pos_y += 64;
-	else if (key_code == 123)
+	else if (key_code == 125)//DOWN
 	{
-		game->player.pos_x -= 64;
+		game->player.vertical_way = 0;
+		mlx_loop_hook(game->libx.mlx, &run_vertical, game);
+	}
+	else if (key_code == 123)//LEFT
+	{
 		game->player.face = 0;
+		mlx_loop_hook(game->libx.mlx, &run_horizontal, game);
 	}
 	else if (key_code == 53)
 		exit(0);
@@ -108,53 +131,28 @@ int	main(void)
 	int j;
 	int n = 0;
 	t_game game;
-	char *ptr[] = {
-			"wizard/idle_right/wizard_right1.xpm", 
-			"wizard/idle_right/wizard_right2.xpm", 
-			"wizard/idle_right/wizard_right3.xpm", 
-			"wizard/idle_right/wizard_right4.xpm", 
-			"wizard/idle_right/wizard_right5.xpm", 
-			"wizard/idle_right/wizard_right6.xpm", 
-			"wizard/idle_right/wizard_right7.xpm", 
-			"wizard/idle_right/wizard_right8.xpm"
-	};
-	char *ptr1[] = {
-			"wizard/idle_left/wizard_left1.xpm", 
-			"wizard/idle_left/wizard_left2.xpm", 
-			"wizard/idle_left/wizard_left3.xpm", 
-			"wizard/idle_left/wizard_left4.xpm", 
-			"wizard/idle_left/wizard_left5.xpm", 
-			"wizard/idle_left/wizard_left6.xpm", 
-			"wizard/idle_left/wizard_left7.xpm", 
-			"wizard/idle_left/wizard_left8.xpm"
-	};
-	char *ptr2[] = {
-			"wizard/run_right/run_right1.xpm", 
-			"wizard/run_right/run_right2.xpm", 
-			"wizard/run_right/run_right3.xpm", 
-			"wizard/run_right/run_right4.xpm", 
-			"wizard/run_right/run_right5.xpm", 
-			"wizard/run_right/run_right6.xpm", 
-			"wizard/run_right/run_right7.xpm", 
-			"wizard/run_right/run_right8.xpm"
-	};
-	game.player.right_idle = ptr;
-	game.player.left_idle = ptr1;
-	game.player.run_right = ptr2;
+
+	set_idle_name(&game.player);
+	set_run_name(&game.player);
 
 	game.player.pos_x = 0;
 	game.player.pos_y = 0;
 	game.player.face = 1;
-	game.mlx.mlx = mlx_init();
-	game.mlx.window = mlx_new_window(game.mlx.mlx, 2000, 1080, "so_long");
+	game.libx.mlx = mlx_init();
+	game.libx.window = mlx_new_window(game.libx.mlx, 2000, 1080, "so_long");
 //
 
-	// mlx_put_image_to_window(game.mlx.mlx, game.mlx.window, mlx_xpm_file_to_image(game.mlx.mlx, "./wizard/run_right/Run.xpm", &i, &j), 0, 0);
-	// mlx_put_image_to_window(game.mlx.mlx, game.mlx.window, mlx_xpm_file_to_image(game.mlx.mlx, game.player.right_idle[0], &i, &j), 40, 60);
 //	
-	mlx_key_hook(game.mlx.window, &move, &game);
-	mlx_loop_hook(game.mlx.mlx, &idle, &game);
-	mlx_hook(game.mlx.window, 17, (0L), &terminate, &game);
-	mlx_loop(game.mlx.mlx);
+	mlx_key_hook(game.libx.window, &move, &game);
+	mlx_loop_hook(game.libx.mlx, &idle, &game);
+	mlx_hook(game.libx.window, 17, (0L), &terminate, &game);
+	mlx_loop(game.libx.mlx);
+
+
+
+
+
+
+
 //	system("leaks a.out");
 }

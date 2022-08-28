@@ -3,7 +3,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define FRAME_NUM 1000
+#define FRAME_NUM 900
+#define UP 126
+#define RIGHT 124
+#define LEFT 123
+#define DOWN 125
+#define ESC 53
+#define W 13
+#define A 0
+#define S 1
+#define D 2
 
 typedef struct s_player
 {
@@ -17,6 +26,13 @@ typedef struct s_player
 	int vertical_way;
 } t_player;
 
+typedef struct s_map
+{
+	int all_collected;
+	int num_of_rows;
+	int num_of_columns;
+} t_map;
+
 typedef struct s_libx{
 	void *mlx;
 	void *window;
@@ -26,6 +42,7 @@ typedef struct s_game
 {
 	t_libx libx;
 	t_player player;
+	t_map map;
 } t_game;
 
 
@@ -35,3 +52,6 @@ typedef struct s_game
 //set_file_name.c
 void set_idle_name(t_player *player);
 void set_run_name(t_player *player);
+
+//input_control.c
+int extension_check(char **av);

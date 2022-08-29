@@ -1,7 +1,10 @@
-#include "minilibx_opengl/mlx.h"
+// #include "minilibx_opengl/mlx.h"
+#include "get_next_line/get_next_line.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
+
 
 #define FRAME_NUM 900
 #define UP 126
@@ -31,6 +34,7 @@ typedef struct s_map
 	int all_collected;
 	int num_of_rows;
 	int num_of_columns;
+	char **entire_map;
 } t_map;
 
 typedef struct s_libx{
@@ -55,3 +59,11 @@ void set_run_name(t_player *player);
 
 //input_control.c
 int extension_check(char **av);
+
+//init.c
+void init_objects(t_game *game);
+
+//map_control.c
+void add_to_map(t_game *game, char *new_line);
+int read_map(t_game *game, char **av);
+int general_control(t_game *game, char **av);

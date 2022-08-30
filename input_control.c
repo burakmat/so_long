@@ -12,8 +12,8 @@ int extension_check(char **av)
 	while (av[1][i + j])
 	{
 		if (av[1][i + j] != ext[j])
-			return (0);
+			return (1);
 		++j;
 	}
-	return (1);
+	return (0);
 }

@@ -126,20 +126,18 @@ int	main(int ac, char **av)
 	int n = 0;
 	t_game game;
 
-	if (ac == 2 && extension_check(av))
-	{
 	set_idle_name(&game.player);
 	set_run_name(&game.player);
 
 	init_objects(&game);
-	// game.libx.mlx = mlx_init();
-	// game.libx.window = mlx_new_window(game.libx.mlx, 2000, 1080, "so_long");
-//
-	if (general_control(&game, av))
-		printf("error\n");
+	if (general_control(&game, ac, av))
+		return (1);
 	else
 		printf("valid\n");
 	printf("row: %d, column: %d\n", game.map.num_of_rows, game.map.num_of_columns);
+	// game.libx.mlx = mlx_init();
+	// game.libx.window = mlx_new_window(game.libx.mlx, 2000, 1080, "so_long");
+//
 //	
 
 	// mlx_key_hook(game.libx.window, &move, &game);
@@ -148,9 +146,6 @@ int	main(int ac, char **av)
 
 	// mlx_loop(game.libx.mlx);
 
-	}
-	else
-	printf("outside if\n");
 
 
 

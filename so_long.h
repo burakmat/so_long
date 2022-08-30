@@ -34,6 +34,9 @@ typedef struct s_map
 	int all_collected;
 	int num_of_rows;
 	int num_of_columns;
+	int collectible;
+	int exit;
+	int player;
 	char **entire_map;
 } t_map;
 
@@ -66,4 +69,19 @@ void init_objects(t_game *game);
 //map_control.c
 void add_to_map(t_game *game, char *new_line);
 int read_map(t_game *game, char **av);
-int general_control(t_game *game, char **av);
+int general_control(t_game *game, int ac, char **av);
+
+//component.c
+int check_component_number(t_game *game);
+
+//valid_path.c
+int is_valid(t_game *game);
+
+//error.c
+int error_output(t_game *game, int err_code);
+
+
+//------------TEMPORARY------------//
+
+//map_control.c
+void print_map(t_game *game);

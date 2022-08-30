@@ -129,7 +129,7 @@ int	main(int ac, char **av)
 	set_idle_name(&game.player);
 	set_run_name(&game.player);
 
-	init_objects(&game);
+	init_primary_objects(&game);
 	if (general_control(&game, ac, av))
 		return (1);
 	else

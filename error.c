@@ -1,11 +1,21 @@
 #include "so_long.h"
 
+void free_all_map(t_game *game)
+{
+	int i;
+
+	i = 0;
+	while (i < game->map.num_of_rows)
+		free(game->map.entire_map[i++]);
+	free(game->map.entire_map);
+}
+
 int error_output(t_game *game, int err_code)
 {
 	if (!err_code)
 		return (0);
 	if (err_code > 3)
-		free(game->map.entire_map);
+		free_all_map(game);
 	if (err_code == 1)
 		write(2, "Error: Number of given argument(s) is invalid\n", 46);
 	else if (err_code == 2)

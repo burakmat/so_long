@@ -107,8 +107,8 @@ int is_valid(t_game *game)
 		}
 		++i;
 	}
-	game->player.pos_x = 64 * --j;
-	game->player.pos_y = 64 * --i;
+	game->player.column = --j;
+	game->player.row = --i;
 	set_bg_to_two(game, i, j);
 	if (!is_all_reachable(game))
 		return (0);

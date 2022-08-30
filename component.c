@@ -12,11 +12,13 @@ void set_component_numbers(t_game *game)
 		while (j < game->map.num_of_columns)
 		{
 			if (game->map.entire_map[i][j] == 'E')
-				game->map.exit += 1;
+				game->map.exit.num += 1;
 			else if (game->map.entire_map[i][j] == 'P')
 				game->map.player += 1;
 			else if (game->map.entire_map[i][j] == 'C')
-				game->map.collectible += 1;
+				game->map.collectible_num += 1;
+			else if (game->map.entire_map[i][j] == 'F')
+				game->map.foe_num += 1;
 			++j;
 		}
 		++i;
@@ -26,10 +28,10 @@ void set_component_numbers(t_game *game)
 int check_component_number(t_game *game)
 {
 	set_component_numbers(game);
-	printf("p: %d, e: %d, c: %d\n", game->map.player, game->map.exit, game->map.collectible);
-	if (game->map.collectible < 1)
+	printf("p: %d, e: %d, c: %d\n", game->map.player, game->map.exit, game->map.collectible_num);
+	if (game->map.collectible_num < 1)
 		return (7);
-	if (game->map.exit != 1)
+	if (game->map.exit.num != 1)
 		return (8);
 	if (game->map.player != 1)
 		return (9);

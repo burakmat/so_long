@@ -1,0 +1,1 @@
+gcc main.c set_file_name.c libmlx.a get_next_line/get_next_line.c get_next_line/get_next_line_utils.c map_control.c print_functions.c update.c valid_path.c loop_hooks.c error.c component.c input_control.c init.c -L./minilibx_opengl -framework OpenGL -framework AppKit

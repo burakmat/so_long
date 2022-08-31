@@ -39,3 +39,34 @@ void set_run_name(t_player *player)
 	player->run_left[6] = "wizard/run_left/run_left7.xpm";
 	player->run_left[7] = "wizard/run_left/run_left8.xpm";
 }
+
+void set_map_files_one(t_game *game)
+{
+	game->map.image.bg = "bg/bg3.xpm";
+	game->map.image.fg = "bg/bg.xpm";
+
+	game->map.image.foe_left[0] = "demon/idle_left/demon_left1.xpm";
+	game->map.image.foe_left[1] = "demon/idle_left/demon_left2.xpm";
+	game->map.image.foe_left[2] = "demon/idle_left/demon_left3.xpm";
+	game->map.image.foe_left[3] = "demon/idle_left/demon_left4.xpm";
+	game->map.image.foe_left[4] = "demon/idle_left/demon_left5.xpm";
+	game->map.image.foe_left[5] = "demon/idle_left/demon_left6.xpm";
+	game->map.image.foe_right[0] = "demon/idle_right/demon_right1.xpm";
+	game->map.image.foe_right[1] = "demon/idle_right/demon_right2.xpm";
+	game->map.image.foe_right[2] = "demon/idle_right/demon_right3.xpm";
+	game->map.image.foe_right[3] = "demon/idle_right/demon_right4.xpm";
+	game->map.image.foe_right[4] = "demon/idle_right/demon_right5.xpm";
+	game->map.image.foe_right[5] = "demon/idle_right/demon_right6.xpm";
+}
+
+void set_map_files_two(t_game *game)
+{
+	game->map.image.collectible[0] = "skull/skull1.xpm";
+	game->map.image.collectible[1] = "skull/skull2.xpm";
+	game->map.image.collectible[2] = "skull/skull3.xpm";
+	game->map.image.collectible[3] = "skull/skull4.xpm";
+	game->map.image.collectible[4] = "skull/skull5.xpm";
+	game->map.image.collectible[5] = "skull/skull6.xpm";
+	game->map.image.collectible[6] = "skull/skull7.xpm";
+	game->map.image.collectible[7] = "skull/skull8.xpm";
+}

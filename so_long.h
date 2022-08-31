@@ -23,6 +23,12 @@ typedef struct s_player
 	char *left_idle[8];
 	char *run_right[8];
 	char *run_left[8];
+	char *attack_one_left[8];
+	char *attack_one_right[8];
+	char *attack_two_left[8];
+	char *attack_two_right[8];
+	char *death_left[7];
+	char *death_right[7];
 	int pos_x;
 	int pos_y;
 	int row;

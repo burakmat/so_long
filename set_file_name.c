@@ -89,7 +89,6 @@ void set_death_files(t_player *player)
 	player->death_left[4] = "wizard/death_left/death_left5.xpm";
 	player->death_left[5] = "wizard/death_left/death_left6.xpm";
 	player->death_left[6] = "wizard/death_left/death_left7.xpm";
-	player->death_left[7] = "wizard/death_left/death_left8.xpm";
 	player->death_right[0] = "wizard/death_right/death_right1.xpm";
 	player->death_right[1] = "wizard/death_right/death_right2.xpm";
 	player->death_right[2] = "wizard/death_right/death_right3.xpm";
@@ -97,7 +96,6 @@ void set_death_files(t_player *player)
 	player->death_right[4] = "wizard/death_right/death_right5.xpm";
 	player->death_right[5] = "wizard/death_right/death_right6.xpm";
 	player->death_right[6] = "wizard/death_right/death_right7.xpm";
-	player->death_right[7] = "wizard/death_right/death_right8.xpm";
 }
 
 void set_map_files_one(t_game *game)
@@ -119,6 +117,33 @@ void set_map_files_one(t_game *game)
 	game->map.image.foe_right[5] = "demon/idle_right/demon_right6.xpm";
 }
 
+void set_foe_attack_files(t_game *game)
+{
+	game->map.image.foe_left_attack[0] = "demon/attack_left/left_attack1.xpm";
+	game->map.image.foe_left_attack[1] = "demon/attack_left/left_attack2.xpm";
+	game->map.image.foe_left_attack[2] = "demon/attack_left/left_attack3.xpm";
+	game->map.image.foe_left_attack[3] = "demon/attack_left/left_attack4.xpm";
+	game->map.image.foe_left_attack[4] = "demon/attack_left/left_attack5.xpm";
+	game->map.image.foe_left_attack[5] = "demon/attack_left/left_attack6.xpm";
+	game->map.image.foe_left_attack[6] = "demon/attack_left/left_attack7.xpm";
+	game->map.image.foe_left_attack[7] = "demon/attack_left/left_attack8.xpm";
+	game->map.image.foe_left_attack[8] = "demon/attack_left/left_attack9.xpm";
+	game->map.image.foe_left_attack[9] = "demon/attack_left/left_attack10.xpm";
+	game->map.image.foe_left_attack[10] = "demon/attack_left/left_attack11.xpm";
+	game->map.image.foe_right_attack[0] = "demon/attack_right/right_attack1.xpm";
+	game->map.image.foe_right_attack[1] = "demon/attack_right/right_attack2.xpm";
+	game->map.image.foe_right_attack[2] = "demon/attack_right/right_attack3.xpm";
+	game->map.image.foe_right_attack[3] = "demon/attack_right/right_attack4.xpm";
+	game->map.image.foe_right_attack[4] = "demon/attack_right/right_attack5.xpm";
+	game->map.image.foe_right_attack[5] = "demon/attack_right/right_attack6.xpm";
+	game->map.image.foe_right_attack[6] = "demon/attack_right/right_attack7.xpm";
+	game->map.image.foe_right_attack[7] = "demon/attack_right/right_attack8.xpm";
+	game->map.image.foe_right_attack[8] = "demon/attack_right/right_attack9.xpm";
+	game->map.image.foe_right_attack[9] = "demon/attack_right/right_attack10.xpm";
+	game->map.image.foe_right_attack[10] = "demon/attack_right/right_attack11.xpm";
+
+}
+
 void set_map_files_two(t_game *game)
 {
 	game->map.image.collectible[0] = "skull/skull1.xpm";
@@ -129,4 +154,16 @@ void set_map_files_two(t_game *game)
 	game->map.image.collectible[5] = "skull/skull6.xpm";
 	game->map.image.collectible[6] = "skull/skull7.xpm";
 	game->map.image.collectible[7] = "skull/skull8.xpm";
+}
+
+void set_all_files(t_game *game)
+{
+	set_idle_name(&game->player);
+	set_run_name(&game->player);
+	set_attack_one_files(&game->player);
+	set_attack_two_files(&game->player);
+	set_death_files(&game->player);
+	set_map_files_one(game);
+	set_map_files_two(game);
+	set_foe_attack_files(game);
 }

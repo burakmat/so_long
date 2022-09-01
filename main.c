@@ -85,33 +85,56 @@
 int move(int key_code, void *param)
 {
 	t_game *game = (t_game *) param;
-	if (key_code == UP || key_code == W)
+	if ((key_code == UP || key_code == W) && !game->key_lock)
 	{
 		game->player.vertical_way = 1;
 		if (!is_target_wall(game, 'u'))
+		{	
+			game->key_lock = 1;
 			mlx_loop_hook(game->libx.mlx, &run_vertical, game);
+		}
 	}
-	else if (key_code == RIGHT || key_code == D)
+	else if ((key_code == RIGHT || key_code == D) && !game->key_lock)
 	{
+		game->player.vertical_way = -1;
 		game->player.face = 1;
 		if (!is_target_wall(game, 'r'))
-			mlx_loop_hook(game->libx.mlx, &run_horizontal, game);
+		{
+			game->key_lock = 1;
+			if (is_target_active_collectible(game, game->player.row, game->player.column + 1))
+			{
+				mlx_loop_hook(game->libx.mlx, &player_collects, game);
+			}
+			else
+				mlx_loop_hook(game->libx.mlx, &run_horizontal, game);
+		}
 	}
-	else if (key_code == DOWN || key_code == S)
+	else if ((key_code == DOWN || key_code == S) && !game->key_lock)
 	{
 		game->player.vertical_way = 0;
 		if (!is_target_wall(game, 'd'))
+		{
+			game->key_lock = 1;
 			mlx_loop_hook(game->libx.mlx, &run_vertical, game);
+		}
 	}
-	else if (key_code == LEFT || key_code == A)
+	else if ((key_code == LEFT || key_code == A) && !game->key_lock)
 	{
+		game->player.vertical_way = -1;
 		game->player.face = 0;
 		if (!is_target_wall(game, 'l'))
-			mlx_loop_hook(game->libx.mlx, &run_horizontal, game);
+		{
+			game->key_lock = 1;
+			if (is_target_active_collectible(game, game->player.row, game->player.column - 1))
+			{
+				mlx_loop_hook(game->libx.mlx, &player_collects, game);
+			}
+			else
+				mlx_loop_hook(game->libx.mlx, &run_horizontal, game);
+		}
 	}
 	else if (key_code == ESC)
 	{
-		system("leaks a.out");
 		exit(0);
 	}
 	// printf("keycode: %d\n", key_code);
@@ -120,8 +143,37 @@ int move(int key_code, void *param)
 
 int terminate(void *param)
 {
+	system("leaks a.out");
 	exit(0);
 }
+
+// void out(t_game *game)
+// {
+// 	int i;
+// 	int j;
+
+// 	i = 0;
+// 	while (i < game->map.num_of_rows)
+// 	{
+// 		j = 0;
+// 		while (j < game->map.num_of_columns)
+// 		{
+// 			if (game->map.entire_map[i][j] == 'C' || game->map.entire_map[i][j] == 'P')
+// 				printf("found row: %d, column: %d\n", i, j);
+// 			++j;
+// 		}
+// 		++i;
+// 	}
+// 	printf("end\n");
+// 	i = 0;
+// 	while (i < game->map.collectible_num)
+// 	{
+// 		printf("row: %d, column: %d\n", game->map.collectible[i].row, game->map.collectible[i].column);
+// 		++i;
+// 	}
+// 	printf("player row: %d, column: %d\n", game->player.row, game->player.column);
+	
+// }
 
 int	main(int ac, char **av)
 {
@@ -133,10 +185,7 @@ int	main(int ac, char **av)
 	int n = 0;
 	t_game game;
 
-	set_idle_name(&game.player);
-	set_run_name(&game.player);
-	set_map_files_one(&game);
-	set_map_files_two(&game);
+	set_all_files(&game);
 
 	init_primary_objects(&game);
 	if (general_control(&game, ac, av))
@@ -153,13 +202,24 @@ int	main(int ac, char **av)
 // //	
 
 
-	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, "wizard/idle_right/wizard_right1.xpm", &i, &j), 64 - 93, 64 - 115);
 	// print_bg(&game);
-	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, "skull/skull1.xpm", &i, &j), 128 + 10, 64 - 5);
+	// int p;
 
+	// p = 0;
+	// while (p < 11)
+	// {
+	// 	mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, game.map.image.foe_right_attack[p], &i, &j), 80 * p, 64 * 3);
+	// 	printf("a\n");
+	// 	++p;
+	// }
+	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, "demon/idle_right/demon_right1.xpm", &i, &j), 64 * 3, 64 * 3);
+	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, "demon/attack_right/demon-right-attack.xpm", &i, &j), 64 * 3, 64 * 3 - 45);
 
+	// out(&game);
+	print_step(&game, "HELLOOOOOOOOOOO", 0, 69, 21, 183);
+	// mlx_string_put(game.libx.mlx, game.libx.window, 200, 200, 0xFF, "HELLO");
 	mlx_key_hook(game.libx.window, &move, &game);
-	mlx_loop_hook(game.libx.mlx, &idle, &game);
+	// mlx_loop_hook(game.libx.mlx, &idle, &game);
 	mlx_hook(game.libx.window, 17, (0L), &terminate, &game);
 
 	mlx_loop(game.libx.mlx);

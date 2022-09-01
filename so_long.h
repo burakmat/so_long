@@ -29,6 +29,8 @@ typedef struct s_player
 	char *attack_two_right[8];
 	char *death_left[7];
 	char *death_right[7];
+	int step;
+	int next_attack;
 	int pos_x;
 	int pos_y;
 	int row;
@@ -37,12 +39,15 @@ typedef struct s_player
 	int vertical_way;
 	int state;
 	int run_state;
+	int attack_state;
 } t_player;
 
 typedef struct s_image
 {
 	char *foe_left[8];
 	char *foe_right[8];
+	char *foe_left_attack[11];
+	char *foe_right_attack[11];
 	char *collectible[8];
 	char *bg;
 	char *fg;
@@ -56,6 +61,7 @@ typedef struct s_foe
 	int column;
 	int face;
 	int state;
+	int killing;
 	int point_a;
 	int point_b;
 } t_foe;
@@ -101,6 +107,7 @@ typedef struct s_libx{
 
 typedef struct s_game
 {
+	int key_lock;
 	t_libx libx;
 	t_player player;
 	t_foe *foe;
@@ -112,10 +119,7 @@ typedef struct s_game
 
 
 //set_file_name.c
-void set_idle_name(t_player *player);
-void set_run_name(t_player *player);
-void set_map_files_one(t_game *game);
-void set_map_files_two(t_game *game);
+void set_all_files(t_game *game);
 
 //input_control.c
 int extension_check(char **av);
@@ -143,12 +147,19 @@ int is_bottom_num(t_game *game, int row, int column, char num);
 void print_all(t_game *game);
 void print_all_run(t_game *game);
 void print_bg(t_game *game);
+void print_all_killing(t_game *game);
+void print_all_dying(t_game *game);
+void print_all_collect(t_game *game);
+void print_step(t_game *game, char *str, int t, int r, int g, int b);
 
 
 //loop_hooks.c
 int	 idle(void *_game);
 int run_horizontal(void *_game);
 int run_vertical(void *_game);
+int player_collects(void *_game);
+int foe_attacks(void *_game);
+int player_dies(void *_game);
 
 //update.c
 void update_player(t_game *game);
@@ -156,12 +167,16 @@ void update_player_horizontal_one(t_game *game);
 void update_player_horizontal_two(t_game *game);
 void update_player_vertical_one(t_game *game);
 void update_player_vertical_two(t_game *game);
+void update_player_collect(t_game *game);
+void update_player_dying(t_game *game);
 void update_foe(t_game *game);
 void update_collectible(t_game *game);
+void update_killing_foe(t_game *game);
 
 //collision_check.c
 int is_target_wall(t_game *game, char target);
 int is_player_dead(t_game *game);
+int is_target_active_collectible(t_game *game, int row, int column);
 
 //error.c
 int error_output(t_game *game, int err_code);

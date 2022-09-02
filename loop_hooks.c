@@ -1,9 +1,5 @@
 #include "so_long.h"
 
-// int dying_animation(void *_game);
-
-
-
 int	 idle(void *_game)
 {
 	t_game *game;

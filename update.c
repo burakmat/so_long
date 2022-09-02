@@ -7,7 +7,7 @@ void update_foe(t_game *game)
 	i = 0;
 	while (i < game->map.foe_num)
 	{
-		if (game->foe[i].point_a != game->foe[i].point_b)
+		if (!is_left_num(game, game->foe[i].row, game->foe[i].column, '1') || !is_right_num(game, game->foe[i].row, game->foe[i].column, '1'))
 		{
 			if (game->foe[i].face)
 			{

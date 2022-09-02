@@ -65,7 +65,7 @@ void set_foe_move_range(t_game *game)
 		num = 1;
 		while (game->map.entire_map[game->foe[i].row][game->foe[i].column + num] != '1')
 			++num;
-		game->foe[i].point_b = game->foe[i].pos_x + (64 * (num - 1));
+		game->foe[i].point_b = game->foe[i].pos_x + (64 * (num - 1)) - 30;
 		++i;
 	}
 }

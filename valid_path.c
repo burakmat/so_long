@@ -54,13 +54,13 @@ void set_bg_to_two(t_game *game, int row, int column)
 
 int is_reachable(t_game *game, int row, int column)
 {
-	if (is_top_num(game, row, column, '2'))
+	if (is_top_num(game, row, column, '2') || is_top_num(game, row, column, 'C') || is_top_num(game, row, column, 'E'))
 		return (1);
-	if (is_right_num(game, row, column, '2'))
+	if (is_right_num(game, row, column, '2') || is_right_num(game, row, column, 'C') || is_right_num(game, row, column, 'E'))
 		return (1);
-	if (is_left_num(game, row, column, '2'))
+	if (is_left_num(game, row, column, '2') || is_left_num(game, row, column, 'C') || is_left_num(game, row, column, 'E'))
 		return (1);
-	if (is_bottom_num(game, row, column, '2'))
+	if (is_bottom_num(game, row, column, '2') || is_bottom_num(game, row, column, 'C') || is_bottom_num(game, row, column, 'E'))
 		return (1);
 	return (0);
 }

@@ -100,7 +100,7 @@ void set_death_files(t_player *player)
 
 void set_map_files_one(t_game *game)
 {
-	game->map.image.bg = "bg/bg3.xpm";
+	game->map.image.bg = "bg/bg2.xpm";
 	game->map.image.fg = "bg/bg.xpm";
 
 	game->map.image.foe_left[0] = "demon/idle_left/demon_left1.xpm";
@@ -154,6 +154,7 @@ void set_map_files_two(t_game *game)
 	game->map.image.collectible[5] = "skull/skull6.xpm";
 	game->map.image.collectible[6] = "skull/skull7.xpm";
 	game->map.image.collectible[7] = "skull/skull8.xpm";
+	game->map.exit.exit_image = "bg/exit.xpm";
 }
 
 void set_all_files(t_game *game)

@@ -192,8 +192,6 @@ int	main(int ac, char **av)
 		return (1);
 	else
 	{
-
-		printf("valid\n");
 	printf("row: %d, column: %d\n", game.map.num_of_rows, game.map.num_of_columns);
 	init_secondary_objects(&game);
 	game.libx.mlx = mlx_init();
@@ -214,12 +212,9 @@ int	main(int ac, char **av)
 	// }
 	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, "demon/idle_right/demon_right1.xpm", &i, &j), 64 * 3, 64 * 3);
 	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, "demon/attack_right/demon-right-attack.xpm", &i, &j), 64 * 3, 64 * 3 - 45);
-
-	// out(&game);
-	print_step(&game, "HELLOOOOOOOOOOO", 0, 69, 21, 183);
-	// mlx_string_put(game.libx.mlx, game.libx.window, 200, 200, 0xFF, "HELLO");
-	mlx_key_hook(game.libx.window, &move, &game);
-	// mlx_loop_hook(game.libx.mlx, &idle, &game);
+	// mlx_put_image_to_window(game.libx.mlx, game.libx.window, mlx_xpm_file_to_image(game.libx.mlx, game.map.exit.exit_image, &i, &j), game.map.exit.column * 64, game.map.exit.row * 64);
+	mlx_hook(game.libx.window, 2, 1L<<0, &move, &game);
+	mlx_loop_hook(game.libx.mlx, &idle, &game);
 	mlx_hook(game.libx.window, 17, (0L), &terminate, &game);
 
 	mlx_loop(game.libx.mlx);

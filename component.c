@@ -28,7 +28,6 @@ void set_component_numbers(t_game *game)
 int check_component_number(t_game *game)
 {
 	set_component_numbers(game);
-	printf("p: %d, e: %d, c: %d\n", game->map.player, game->map.exit, game->map.collectible_num);
 	if (game->map.collectible_num < 1)
 		return (7);
 	if (game->map.exit.num != 1)

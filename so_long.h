@@ -150,7 +150,7 @@ void print_bg(t_game *game);
 void print_all_killing(t_game *game);
 void print_all_dying(t_game *game);
 void print_all_collect(t_game *game);
-void print_step(t_game *game, char *str, int t, int r, int g, int b);
+void print_step(t_game *game);
 
 
 //loop_hooks.c
@@ -180,6 +180,10 @@ int is_target_active_collectible(t_game *game, int row, int column);
 
 //error.c
 int error_output(t_game *game, int err_code);
+
+//util
+char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 
 //------------TEMPORARY------------//

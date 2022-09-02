@@ -21,7 +21,7 @@ int	 idle(void *_game)
 	update_collectible(game);
 	update_foe(game);
 	update_player(game);
-	
+	return (0);
 }
 
 int run_horizontal(void *_game)
@@ -35,6 +35,7 @@ int run_horizontal(void *_game)
 	update_collectible(game);
 	update_foe(game);
 	update_player_horizontal_two(game);
+	return (0);
 }
 
 int run_vertical(void *_game)
@@ -48,6 +49,7 @@ int run_vertical(void *_game)
 	update_collectible(game);
 	update_foe(game);
 	update_player_vertical_two(game);
+	return (0);
 }
 
 int player_collects(void *_game)
@@ -60,6 +62,7 @@ int player_collects(void *_game)
 	update_collectible(game);
 	update_player_collect(game);
 	update_foe(game);
+	return (0);
 }
 
 int foe_attacks(void *_game)
@@ -72,6 +75,7 @@ int foe_attacks(void *_game)
 	update_collectible(game);
 	update_killing_foe(game);
 	update_player(game);
+	return (0);
 }
 
 int player_dies(void *_game)
@@ -85,4 +89,5 @@ int player_dies(void *_game)
 	update_collectible(game);
 	update_killing_foe(game);
 	update_player_dying(game);
+	return (0);
 }

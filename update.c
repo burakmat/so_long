@@ -52,6 +52,7 @@ void update_player_horizontal_two(t_game *game)
 	if (game->player.run_state == 8)
 	{
 		game->player.run_state = 0;
+		game->player.step += 1;
 		if (game->player.face)
 			++(game->player.column);
 		else
@@ -89,6 +90,7 @@ void update_player_vertical_two(t_game *game)
 	if (game->player.run_state == 8)
 	{
 		game->player.run_state = 0;
+		game->player.step += 1;
 		if (game->player.vertical_way)
 			--(game->player.row);
 		else

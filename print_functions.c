@@ -5,21 +5,16 @@ int	create_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-void print_step(t_game *game, int t, int r, int g, int b)
+void print_step(t_game *game)
 {
+	char *step1;
 	char *str;
 
-	
-
-
-
-
-
-
-
-
-	mlx_string_put(game->libx.mlx, game->libx.window, 600, 150, create_trgb(t, r, g, b), str);
-
+	step1 = ft_itoa(game->player.step);
+	str = ft_strjoin("Number of steps: ", step1);
+	free(step1);
+	mlx_string_put(game->libx.mlx, game->libx.window, 20, 20, 0x44384C, str);
+	free(str);
 
 }
 
@@ -67,19 +62,19 @@ void print_fg(t_game *game, int row)
 	mlx_destroy_image(game->libx.mlx, img);
 }
 
-void print_door(t_game *game, int row)//change later
+void print_door(t_game *game)//change later
 {
-	int i;
+	void *img;
+	int x;
+	int y;
 
-	i = 0;
-	while (i < game->map.num_of_columns)
-	{
-		if (game->map.entire_map[row][i] == 'E')
-			mlx_put_image_to_window(game->libx.mlx, game->libx.window, 
-			mlx_xpm_file_to_image(game->libx.mlx, game->map.exit.exit_image, NULL, NULL), 
-			game->map.exit.column * 64, game->map.exit.row * 64);
-		++i;
-	}
+	img = mlx_xpm_file_to_image(game->libx.mlx, game->map.exit.exit_image, &x, &y);
+	mlx_put_image_to_window(game->libx.mlx, game->libx.window, 
+		img, game->map.exit.column * 64, game->map.exit.row * 64);
+	mlx_destroy_image(game->libx.mlx, img);
+
+
+
 }
 
 void print_collectibles(t_game *game, int row)
@@ -265,32 +260,34 @@ void print_all(t_game *game)
 	int i;
 
 	print_bg(game);
+	print_door(game);
 	i = 0;
 	while (i < game->map.num_of_rows)
 	{
-		// print_door(game, i);
 		print_fg(game, i);
 		print_collectibles(game, i);
 		print_player_idle(game, i);
 		print_foe(game, i);
 		++i;
 	}	
+		print_step(game);
 }
 void print_all_run(t_game *game)
 {
 	int i;
 
 	print_bg(game);
+	print_door(game);
 	i = 0;
 	while (i < game->map.num_of_rows)
 	{
-		// print_door(game, i);
 		print_fg(game, i);
 		print_collectibles(game, i);
 		print_player_run(game, i);
 		print_foe(game, i);
 		++i;
 	}
+		print_step(game);
 }
 
 void print_all_collect(t_game *game)
@@ -298,15 +295,16 @@ void print_all_collect(t_game *game)
 	int i;
 
 	print_bg(game);
+	print_door(game);
 	i = 0;
 	while (i < game->map.num_of_rows)
 	{
-		// print_door(game, i);
 		print_fg(game, i);
 		print_collectibles(game, i);
 		print_foe(game, i);
 		++i;
 	}
+		print_step(game);
 	print_player_attack(game);
 }
 
@@ -315,16 +313,17 @@ void print_all_killing(t_game *game)
 	int i;
 
 	print_bg(game);
+	print_door(game);
 	i = 0;
 	while (i < game->map.num_of_rows)
 	{
-		// print_door(game, i);
 		print_fg(game, i);
 		print_collectibles(game, i);
 		print_player_idle(game, i);
 		print_foe(game, i);
 		++i;
 	}
+		print_step(game);
 }
 
 void print_all_dying(t_game *game)
@@ -332,14 +331,15 @@ void print_all_dying(t_game *game)
 	int i;
 
 	print_bg(game);
+	print_door(game);
 	i = 0;
 	while (i < game->map.num_of_rows)
 	{
-		// print_door(game, i);
 		print_fg(game, i);
 		print_collectibles(game, i);
 		print_player_dying(game, i);
 		print_foe(game, i);
 		++i;
 	}
+		print_step(game);
 }

@@ -81,7 +81,8 @@ void	set_map_files_two(t_game *game)
 	game->map.image.collectible[5] = "skull/skull6.xpm";
 	game->map.image.collectible[6] = "skull/skull7.xpm";
 	game->map.image.collectible[7] = "skull/skull8.xpm";
-	game->map.exit.exit_image = "bg/exit.xpm";
+	game->map.exit.exit_close = "bg/exit_closed.xpm";
+	game->map.exit.exit_open = "bg/exit_open.xpm";
 }
 
 void	set_all_files(t_game *game)

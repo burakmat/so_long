@@ -97,7 +97,8 @@ typedef struct s_exit
 	int		y_pos;
 	int		row;
 	int		column;
-	char	*exit_image;
+	char	*exit_close;
+	char	*exit_open;
 }	t_exit;
 
 typedef struct s_map

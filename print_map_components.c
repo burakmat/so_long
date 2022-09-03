@@ -63,8 +63,12 @@ void	print_door(t_game *game)
 	int		x;
 	int		y;
 
-	img = mlx_xpm_file_to_image(game->libx.mlx, \
-		game->map.exit.exit_image, &x, &y);
+	if (game->map.all_collected == game->map.collectible_num)
+		img = mlx_xpm_file_to_image(game->libx.mlx, \
+			game->map.exit.exit_open, &x, &y);
+	else
+		img = mlx_xpm_file_to_image(game->libx.mlx, \
+			game->map.exit.exit_close, &x, &y);
 	mlx_put_image_to_window(game->libx.mlx, game->libx.window, \
 		img, game->map.exit.column * 64, game->map.exit.row * 64);
 	mlx_destroy_image(game->libx.mlx, img);

@@ -36,6 +36,19 @@ void	set_bg_to_two(char **tmp_map, int row, int column)
 	}
 }
 
+void	free_copy_map(t_game *game, char **map)
+{
+	int	i;
+
+	i = 0;
+	while (i < game->map.num_of_rows + 1)
+	{
+		free(map[i]);
+		++i;
+	}
+	free(map);
+}
+
 int	is_all_reachable(t_game *game, char **tmp_map)
 {
 	int	i;
@@ -50,14 +63,14 @@ int	is_all_reachable(t_game *game, char **tmp_map)
 			if (tmp_map[i][j] == 'C' || \
 				tmp_map[i][j] == 'E')
 			{
-				free(tmp_map);
+				free_copy_map(game, tmp_map);
 				return (0);
 			}
 			++j;
 		}
 		++i;
 	}
-	free(tmp_map);
+	free_copy_map(game, tmp_map);
 	return (1);
 }
 

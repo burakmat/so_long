@@ -150,6 +150,11 @@ int		check_column(t_game *game, int column);
 int		check_row(t_game *game, int row);
 //map_controll_general.c
 int		general_control(t_game *game, int ac, char **av);
+//tmp_map.c
+int	is_top_num_tmp(char **map, int row, int column);
+int	is_left_num_tmp(char **map, int row, int column);
+int	is_right_num_tmp(char **map, int row, int column);
+int	is_bottom_num_tmp(char **map, int row, int column);
 //component.c
 int		check_component_number(t_game *game);
 //key_press.c

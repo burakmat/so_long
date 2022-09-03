@@ -11,7 +11,7 @@ LIBX = libmlx.a
 FW = -framework OpenGL -framework AppKit
 CC = gcc
 RM = rm -rf
-MAP = test_map.ber
+MAP = maps/test_map.ber
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LIBX) $(FW) -o $(NAME)
 

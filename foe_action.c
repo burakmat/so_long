@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_control.c                                    :+:      :+:    :+:   */
+/*   foe_action.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmat <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/03 04:36:20 by bmat              #+#    #+#             */
-/*   Updated: 2022/09/03 04:36:21 by bmat             ###   ########.fr       */
+/*   Created: 2022/09/03 04:36:58 by bmat              #+#    #+#             */
+/*   Updated: 2022/09/03 04:36:59 by bmat             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	extension_check(char **av)
+int	foe_attacks(void *_game)
 {
-	int		i;
-	int		j;
-	char	*ext;
+	t_game	*game;
 
-	ext = ".ber";
-	i = 0;
-	j = 0;
-	while (av[1][i])
-		++i;
-	i -= 4;
-	while (av[1][i + j])
-	{
-		if (av[1][i + j] != ext[j])
-			return (1);
-		++j;
-	}
+	game = (t_game *)_game;
+	usleep(60000);
+	print_all_killing(game);
+	update_collectible(game);
+	update_killing_foe(game);
+	update_player(game);
 	return (0);
 }

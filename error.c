@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmat <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/03 04:37:12 by bmat              #+#    #+#             */
+/*   Updated: 2022/09/03 04:37:13 by bmat             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void free_all_map(t_game *game)
+void	free_all_map(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->map.num_of_rows)
@@ -10,7 +22,7 @@ void free_all_map(t_game *game)
 	free(game->map.entire_map);
 }
 
-int error_output(t_game *game, int err_code)
+int	error_output(t_game *game, int err_code)
 {
 	if (!err_code)
 		return (0);

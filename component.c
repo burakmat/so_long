@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   component.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmat <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/03 04:37:28 by bmat              #+#    #+#             */
+/*   Updated: 2022/09/03 04:37:28 by bmat             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void set_component_numbers(t_game *game)
+void	set_component_numbers(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->map.num_of_rows)
@@ -25,7 +37,7 @@ void set_component_numbers(t_game *game)
 	}
 }
 
-int check_component_number(t_game *game)
+int	check_component_number(t_game *game)
 {
 	set_component_numbers(game);
 	if (game->map.collectible_num < 1)

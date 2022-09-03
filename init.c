@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmat <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/03 04:36:33 by bmat              #+#    #+#             */
+/*   Updated: 2022/09/03 04:36:34 by bmat             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void init_primary_objects(t_game *game)
+void	init_primary_objects(t_game *game)
 {
 	game->key_lock = 0;
-
 	game->map.all_collected = 0;
 	game->map.num_of_columns = 0;
 	game->map.num_of_rows = 0;
@@ -12,7 +23,6 @@ void init_primary_objects(t_game *game)
 	game->map.exit.num = 0;
 	game->map.player = 0;
 	game->map.entire_map = NULL;
-
 	game->player.face = 1;
 	game->player.step = 0;
 	game->player.next_attack = 1;
@@ -21,11 +31,11 @@ void init_primary_objects(t_game *game)
 	game->player.attack_state = 0;
 }
 
-void set_collectibles(t_game *game)
+void	set_collectibles(t_game *game)
 {
-	int i;
-	int j;
-	int id;
+	int	i;
+	int	j;
+	int	id;
 
 	id = 0;
 	i = 0;
@@ -50,86 +60,25 @@ void set_collectibles(t_game *game)
 	}
 }
 
-void set_foe_move_range(t_game *game)
+void	set_collectible_position(t_game *game)
 {
-	int i;
-	int num;
-
-	i = 0;
-	while (i < game->map.foe_num)
-	{
-		num = 1;
-		while (game->map.entire_map[game->foe[i].row][game->foe[i].column - num] != '1')
-			++num;
-		game->foe[i].point_a = game->foe[i].pos_x - (64 * (num - 1));
-		num = 1;
-		while (game->map.entire_map[game->foe[i].row][game->foe[i].column + num] != '1')
-			++num;
-		game->foe[i].point_b = game->foe[i].pos_x + (64 * (num - 1)) - 30;
-		++i;
-	}
-}
-
-void set_foe(t_game *game)
-{
-	int i;
-	int j;
-	int id;
-
-	id = 0;
-	i = 0;
-	while (i < game->map.num_of_rows)
-	{
-		j = 0;
-		while (j < game->map.num_of_columns)
-		{
-			if (game->map.entire_map[i][j] == 'F')
-			{
-				game->foe[id].row = i;
-				game->foe[id].column = j;
-				game->foe[id].face = 0;
-				game->foe[id].state = 0;
-				game->foe[id].killing = 0;
-				++id;
-			}
-			if (id == game->map.foe_num)
-				return ;
-			++j;
-		}
-		++i;
-	}
-}
-
-void set_foes_position(t_game *game)
-{
-	int i;
-
-	i = 0;
-	while (i < game->map.foe_num)
-	{
-		game->foe[i].pos_x = (game->foe[i].column * 64) - 32;
-		game->foe[i].pos_y = (game->foe[i].row * 64) - 65;
-		++i;
-	}
-}
-
-void set_collectible_position(t_game *game)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->map.collectible_num)
 	{
-		game->map.collectible[i].pos_x = (game->map.collectible[i].column * 64) + 10;
-		game->map.collectible[i].pos_y = (game->map.collectible[i].row * 64) - 5;
+		game->map.collectible[i].pos_x = \
+			(game->map.collectible[i].column * 64) + 10;
+		game->map.collectible[i].pos_y = \
+			(game->map.collectible[i].row * 64) - 5;
 		++i;
 	}
 }
 
-void set_exit(t_game *game)
+void	set_exit(t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < game->map.num_of_rows)
@@ -148,21 +97,17 @@ void set_exit(t_game *game)
 	}
 }
 
-void init_secondary_objects(t_game *game)
+void	init_secondary_objects(t_game *game)
 {
-	game->map.collectible = (t_collectible *)malloc(sizeof(t_collectible) * game->map.collectible_num);
+	game->map.collectible = (t_collectible *)malloc(sizeof(t_collectible) \
+		* game->map.collectible_num);
 	game->foe = (t_foe *)malloc(sizeof(t_foe) * game->map.foe_num);
-	// if (!game->map.collectible || !game->foe)
-	// 	exit(0);
 	set_collectibles(game);
 	set_collectible_position(game);
 	set_foe(game);
 	set_foes_position(game);
 	set_foe_move_range(game);
 	set_exit(game);
-	
-
 	game->player.pos_x = (game->player.column * 64) - 93;
 	game->player.pos_y = (game->player.row * 64) - 115;
-
 }

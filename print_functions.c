@@ -16,11 +16,14 @@ void	print_step(t_game *game)
 {
 	char	*step1;
 	char	*str;
+	int i;
 
 	step1 = ft_itoa(game->player.step);
 	str = ft_strjoin("Number of steps: ", step1);
 	free(step1);
-	mlx_string_put(game->libx.mlx, game->libx.window, 20, 20, 0x44384C, str);
+	i = 0;
+	while (i++ < FRAME_NUM)
+		mlx_string_put(game->libx.mlx, game->libx.window, 20, 20, 0x44384C, str);
 	free(str);
 }
 

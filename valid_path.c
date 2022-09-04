@@ -80,7 +80,7 @@ char	**copy_map(t_game *game)
 	int		j;
 	char	**tmp_map;
 
-	*tmp_map = malloc(sizeof(char *) * game->map.num_of_rows + 1);
+	tmp_map = malloc(sizeof(char *) * game->map.num_of_rows + 1);
 	i = 0;
 	while (i < game->map.num_of_rows)
 	{

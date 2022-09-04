@@ -21,7 +21,6 @@ int	idle(void *_game)
 		game->player.column == game->map.exit.column && \
 		game->player.row == game->map.exit.row)
 		exit(0);
-	usleep(60000);
 	print_all(game);
 	if (is_player_dead(game))
 	{
@@ -39,7 +38,6 @@ int	run_horizontal(void *_game)
 	t_game	*game;
 
 	game = (t_game *)_game;
-	usleep(60000);
 	update_player_horizontal_one(game);
 	print_all_run(game);
 	update_collectible(game);
@@ -53,7 +51,6 @@ int	run_vertical(void *_game)
 	t_game	*game;
 
 	game = (t_game *)_game;
-	usleep(60000);
 	update_player_vertical_one(game);
 	print_all_run(game);
 	update_collectible(game);
@@ -67,7 +64,6 @@ int	player_collects(void *_game)
 	t_game	*game;
 
 	game = (t_game *)_game;
-	usleep(60000);
 	print_all_collect(game);
 	update_collectible(game);
 	update_player_collect(game);
@@ -80,7 +76,6 @@ int	player_dies(void *_game)
 	t_game	*game;
 
 	game = (t_game *)_game;
-	usleep(60000);
 	print_all_dying(game);
 	update_collectible(game);
 	update_killing_foe(game);

@@ -17,7 +17,6 @@ int	foe_attacks(void *_game)
 	t_game	*game;
 
 	game = (t_game *)_game;
-	usleep(60000);
 	print_all_killing(game);
 	update_collectible(game);
 	update_killing_foe(game);

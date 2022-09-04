@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define FRAME_NUM 900
+# define FRAME_NUM 2000
 # define UP 126
 # define RIGHT 124
 # define LEFT 123

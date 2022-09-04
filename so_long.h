@@ -15,9 +15,7 @@
 
 # include "minilibx_opengl/mlx.h"
 # include "get_next_line/get_next_line.h"
-# include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
 
 # define FRAME_NUM 2000

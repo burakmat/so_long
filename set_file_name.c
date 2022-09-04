@@ -14,8 +14,8 @@
 
 void	set_map_files_one(t_game *game)
 {
-	game->map.image.bg = "bg/bg2.xpm";
-	game->map.image.fg = "bg/bg.xpm";
+	game->map.image.fg = "bg/bg_dark.xpm";
+	game->map.image.bg = "bg/bg_test.xpm";
 	game->map.image.foe_left[0] = "demon/idle_left/demon_left1.xpm";
 	game->map.image.foe_left[1] = "demon/idle_left/demon_left2.xpm";
 	game->map.image.foe_left[2] = "demon/idle_left/demon_left3.xpm";

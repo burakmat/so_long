@@ -7,20 +7,30 @@ SRCS = main.c set_file_name.c get_next_line/get_next_line.c \
 	set_player_file_name.c update_player_run.c update_kill_sequence.c \
 	update_collect_sequence.c is_direction_num.c tmp_map.c
 OBJS = $(SRCS:.c=.o)
-LIBX = libmlx.a
+LIBX = minilibx_opengl/libmlx.a
+GNL = get_next_line/gnl.a
 FW = -framework OpenGL -framework AppKit
 CC = gcc
 RM = rm -rf
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBX) $(GNL) $(OBJS)
 	$(CC) $(OBJS) $(LIBX) $(FW) -o $(NAME)
+
+$(LIBX):
+	make -C minilibx_opengl
+
+$(GNL):
+	make -C get_next_line
 
 all: $(NAME)
 
 clean:
+	@make clean -C get_next_line
 	$(RM) $(OBJS)
 
 fclean: clean
+	@make clean -C minilibx_opengl
+	@make fclean -C get_next_line
 	$(RM) $(NAME)
 
 re: fclean all
